@@ -99,10 +99,20 @@ _ADE20K_INFORMATION = DatasetDescriptor(
     ignore_label=0,
 )
 
+_PLACENOTE_INFORMATION = DatasetDescriptor(
+    splits_to_sizes={
+        'train': 2001,  # num of samples in images/training
+        'val': 0,  # num of samples in images/validation
+    },
+    num_classes=3,
+    ignore_label=255,
+)
+
 _DATASETS_INFORMATION = {
     'cityscapes': _CITYSCAPES_INFORMATION,
     'pascal_voc_seg': _PASCAL_VOC_SEG_INFORMATION,
     'ade20k': _ADE20K_INFORMATION,
+    'placenote': _PLACENOTE_INFORMATION,
 }
 
 # Default file pattern of TFRecord of TensorFlow Example.
@@ -283,6 +293,7 @@ class Dataset(object):
     image = sample[common.IMAGE]
     label = sample[common.LABELS_CLASS]
 
+    print(self.crop_size)
     original_image, image, label = input_preprocess.preprocess_image_and_label(
         image=image,
         label=label,
